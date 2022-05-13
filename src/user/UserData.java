@@ -2,6 +2,8 @@ package user;
 
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 
 public class UserData { // CLASS TO ADD STUDENTS
 
@@ -10,6 +12,9 @@ public class UserData { // CLASS TO ADD STUDENTS
     private final StringProperty PRODUCT_NAME;
     private final StringProperty CATEGORY;
     private final StringProperty PRICE;
+    private HBox BUTTON_HBOX;
+    private Button editButton;
+    private Button deleteButton;
 
 
     public UserData(String productId, String productName, String category, String price){
@@ -18,6 +23,11 @@ public class UserData { // CLASS TO ADD STUDENTS
         this.PRODUCT_NAME = new SimpleStringProperty( productName );
         this.CATEGORY = new SimpleStringProperty( category );
         this.PRICE = new SimpleStringProperty( price );
+        this.editButton = new Button("Edit");
+        this.deleteButton = new Button("Delete");
+
+        BUTTON_HBOX = new HBox();
+        BUTTON_HBOX.getChildren().addAll(editButton, deleteButton);
     }
 
 
@@ -70,6 +80,35 @@ public class UserData { // CLASS TO ADD STUDENTS
     }
 
 
+    public void setEditButton(Button editButton) {
 
+        this.editButton = editButton;
+    }
+
+    public Button getEditButton() {
+
+        return editButton;
+    }
+
+    public void setDeleteButton(Button deleteButton) {
+
+        this.deleteButton = deleteButton;
+    }
+
+    public Button getDeleteButton() {
+
+        return deleteButton;
+    }
+
+
+    public void setBUTTON_HBOX(HBox hbox) {
+
+        this.BUTTON_HBOX = hbox;
+    }
+
+    public HBox getBUTTON_HBOX() {
+
+        return BUTTON_HBOX;
+    }
 }
 

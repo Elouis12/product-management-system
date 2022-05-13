@@ -205,7 +205,7 @@ public class UserController implements Initializable {
 
 
     @FXML
-    private TextField editItemMessageLabel;
+    private Label editItemMessageLabel;
 
     @FXML
     public void updateItem(){

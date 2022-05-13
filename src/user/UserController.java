@@ -169,11 +169,11 @@ public class UserController implements Initializable {
 
 
     @FXML
-    public static void EditScreen(){
+    public static void editScreen(){
 
         try{
 
-            Pane root = FXMLLoader.load( UserController.class.getResource("./src/user/edit.fxml") );
+            Pane root = FXMLLoader.load( UserController.class.getClassLoader().getResource("/user/edit.fxml") );
 
             Scene editScene = new Scene( root );
 

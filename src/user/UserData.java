@@ -26,6 +26,10 @@ public class UserData { // CLASS TO ADD STUDENTS
         this.editButton = new Button("Edit");
         this.deleteButton = new Button("Delete");
 
+        editButton.setOnAction( event -> {
+
+            UserController.editScreen();
+        } );
         BUTTON_HBOX = new HBox();
         BUTTON_HBOX.getChildren().addAll(editButton, deleteButton);
     }

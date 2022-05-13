@@ -83,7 +83,7 @@ public class LoginController implements Initializable {
 
         }catch (IOException e){
 
-            System.err.println(e);
+            e.printStackTrace();
         }
     }
 

@@ -30,13 +30,13 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="67.0" layoutY="177.0" text="password" />
-                        <TextField fx:id="signupEmailTextfield" layoutX="300.0" layoutY="116.0" prefHeight="16.0" prefWidth="202.0" promptText="email" />
+                        <TextField fx:id="signupEmailTextField" layoutX="300.0" layoutY="116.0" prefHeight="16.0" prefWidth="202.0" promptText="email" />
                         <Label layoutX="66.0" layoutY="62.0" text="Username" />
                         <Label layoutX="78.0" layoutY="120.0" text="Email" />
-                        <TextField fx:id="signupUsernameTextfield" layoutX="300.0" layoutY="58.0" prefHeight="16.0" prefWidth="202.0" promptText="username" />
-                        <TextField fx:id="signupPasswordTextfield" layoutX="300.0" layoutY="173.0" prefHeight="16.0" prefWidth="202.0" promptText="password" />
-                        <Button layoutX="169.0" layoutY="301.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="239.0" text="Sign up" />
-                        <Label fx:id="signupMessageLabel" layoutX="168.0" layoutY="267.0" prefHeight="18.0" prefWidth="242.0" />
+                        <TextField fx:id="signupUsernameTextField" layoutX="300.0" layoutY="58.0" prefHeight="16.0" prefWidth="202.0" promptText="username" />
+                        <TextField fx:id="signupPasswordTextField" layoutX="300.0" layoutY="173.0" prefHeight="16.0" prefWidth="202.0" promptText="password" />
+                        <Button layoutX="169.0" layoutY="301.0" mnemonicParsing="false" onAction="#signUp" prefHeight="26.0" prefWidth="239.0" text="Sign up" />
+                        <Label fx:id="signupMessageLabel" layoutX="168.0" layoutY="267.0" prefHeight="18.0" prefWidth="242.0" textAlignment="CENTER" textFill="#f72c2c" />
                      </children>
                   </AnchorPane>
             </content>

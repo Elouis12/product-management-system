@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -84,11 +83,11 @@ public class UserController implements Initializable {
 
             while( resultSet.next() ){ // has anything .. going through each row
 
-                this.dataForTable.add( new UserData( resultSet.getString(1), // id
+                this.dataForTable.add( new UserData( resultSet.getString(1), // product id
                         resultSet.getString(3), // product name
                         resultSet.getString(4), // category name
-                        resultSet.getString(5)// price
-                        createButton()
+                        resultSet.getString(5),// price
+                        resultSet.getString(6) // general id
                         // the two buttons don't have to be added since it will in
                         // the constructor
                 ) );
@@ -169,20 +168,22 @@ public class UserController implements Initializable {
         this.addItemMessageLabel.setText( "" );
     }
 
+    @FXML
+    private static Button updateItemButton;
 
     @FXML
-    public /*static*/ void editScreen(){
+    public static void editScreen(String id){
+
 
         try{
 
-            Pane root = FXMLLoader.load( /*UserController.class*/getClass().getClassLoader().getResource("./user/edit.fxml") );
+            Pane root = FXMLLoader.load( UserController.class.getClassLoader().getResource("./user/edit.fxml") );
 
             Scene editScene = new Scene( root );
 
             Stage editStage = new Stage();
             editStage.setScene( editScene );
             editStage.setTitle( "Edit Item" );
-            editStage.initModality( Modality.APPLICATION_MODAL ); // user has o exit out of update items window before they can access the main
             editStage.show();
 
         }catch (IOException e){
@@ -239,7 +240,7 @@ public class UserController implements Initializable {
 
             if( !productId.equals( "" ) ){
 
-                sql = "UPDATE products SET product_id = ?;"; // update the product ID
+                sql = "UPDATE products SET product_id = ? WHERE id = ;"; // update the product ID
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, productId);
                 preparedStatement.execute();

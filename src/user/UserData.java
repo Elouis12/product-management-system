@@ -19,19 +19,21 @@ public class UserData { // CLASS TO ADD STUDENTS
     private Button deleteButton;
 
 
-    public UserData(String productId, String productName, String category, String price, Button editButton, Button deleteButton){
+    public UserData(String productId, String productName, String category, String price, String id){
 
         this.PRODUCT_ID = new SimpleStringProperty( productId );
         this.PRODUCT_NAME = new SimpleStringProperty( productName );
         this.CATEGORY = new SimpleStringProperty( category );
         this.PRICE = new SimpleStringProperty( price );
-        this.editButton = editButton /*new Button("Edit")*/;
-        this.deleteButton = deleteButton/*new Button("Delete")*/;
+        this.editButton = new Button("Edit");
+        this.deleteButton = new Button("Delete");
 
-        /*editButton.setOnAction( event -> {
+        editButton.setUserData(id); // so we can access it when we make edits
+        editButton.setOnAction( event -> {
 
-            UserController.editScreen();
-        } );*/
+            System.out.println(editButton.getUserData());;
+            UserController.editScreen( editButton.getUserData().toString() );
+        } );
         BUTTON_HBOX = new HBox();
         BUTTON_HBOX.getChildren().addAll(editButton, deleteButton);
     }

@@ -1,13 +1,13 @@
 package user;
 
+import edit.EditController;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
 
-public class UserData { // CLASS TO ADD STUDENTS
+public class ProductData { // CLASS TO ADD STUDENTS
 
 
     private final StringProperty PRODUCT_ID;
@@ -21,7 +21,7 @@ public class UserData { // CLASS TO ADD STUDENTS
     private static String id; // id of the product, not the product_id itself
 
 
-    public UserData(String productId, String productName, String category, String price, String id){
+    public ProductData(String productId, String productName, String category, String price, String id){
 
         this.PRODUCT_ID = new SimpleStringProperty( productId );
         this.PRODUCT_NAME = new SimpleStringProperty( productName );
@@ -34,8 +34,10 @@ public class UserData { // CLASS TO ADD STUDENTS
         editButton.setOnAction( event -> {
 
             System.out.println( editButton.getUserData() );
-            UserData.id = editButton.getUserData().toString(); // pass that id to the update button
+            ProductData.id = editButton.getUserData().toString(); // pass that id to the update button
             System.out.println( getId() );
+            EditController.editScreen();
+
         } );
         BUTTON_HBOX = new HBox();
         BUTTON_HBOX.getChildren().addAll(editButton, deleteButton);

@@ -43,24 +43,24 @@ public class UserController implements Initializable {
 
     // TABLE
     @FXML
-    private TableView<UserData> productTable;
+    private TableView<ProductData> productTable;
 
     @FXML
-    private TableColumn<UserData, String> productIdColumn;
+    private TableColumn<ProductData, String> productIdColumn;
 
     @FXML
-    private TableColumn<UserData, String> productNameColumn;
+    private TableColumn<ProductData, String> productNameColumn;
 
     @FXML
-    private TableColumn<UserData, String> categoryColumn;
+    private TableColumn<ProductData, String> categoryColumn;
 
     @FXML
-    private TableColumn<UserData, String> priceColumn;
+    private TableColumn<ProductData, String> priceColumn;
 
     @FXML
-    private TableColumn<UserData, String> actionsColumn;
+    private TableColumn<ProductData, String> actionsColumn;
 
-    private ObservableList<UserData> dataForTable;
+    private ObservableList<ProductData> dataForTable;
 
 
     @Override
@@ -83,7 +83,7 @@ public class UserController implements Initializable {
 
             while( resultSet.next() ){ // has anything .. going through each row
 
-                this.dataForTable.add( new UserData( resultSet.getString(1), // product id
+                this.dataForTable.add( new ProductData( resultSet.getString(1), // product id
                         resultSet.getString(3), // product name
                         resultSet.getString(4), // category name
                         resultSet.getString(5),// price
@@ -102,11 +102,11 @@ public class UserController implements Initializable {
             System.err.println("Error " + e);
         }
 
-        this.productIdColumn.setCellValueFactory( new PropertyValueFactory<UserData, String>("PRODUCT_ID"));
-        this.productNameColumn.setCellValueFactory( new PropertyValueFactory<UserData, String>("PRODUCT_NAME"));
-        this.categoryColumn.setCellValueFactory( new PropertyValueFactory<UserData, String>("CATEGORY"));
-        this.priceColumn.setCellValueFactory( new PropertyValueFactory<UserData, String>("PRICE"));
-        this.actionsColumn.setCellValueFactory( new PropertyValueFactory<UserData, String>("BUTTON_HBOX") );
+        this.productIdColumn.setCellValueFactory( new PropertyValueFactory<ProductData, String>("PRODUCT_ID"));
+        this.productNameColumn.setCellValueFactory( new PropertyValueFactory<ProductData, String>("PRODUCT_NAME"));
+        this.categoryColumn.setCellValueFactory( new PropertyValueFactory<ProductData, String>("CATEGORY"));
+        this.priceColumn.setCellValueFactory( new PropertyValueFactory<ProductData, String>("PRICE"));
+        this.actionsColumn.setCellValueFactory( new PropertyValueFactory<ProductData, String>("BUTTON_HBOX") );
 
         this.productTable.setItems(this.dataForTable); // put in that list to the table
 
@@ -212,7 +212,7 @@ public class UserController implements Initializable {
     @FXML
     public void updateItem(){
 
-        System.out.println("USER DATA PASSED IS " + UserData.getId() );
+        System.out.println("USER DATA PASSED IS " + ProductData.getId() );
 
         String productId = productIdEditTextField.getText();
         String productName = productNameEditTextField.getText();
@@ -241,28 +241,28 @@ public class UserController implements Initializable {
 
             if( !productId.equals( "" ) ){
 
-                sql = "UPDATE products SET product_id = ? WHERE id = '" + UserData.getId() + "';"; // update the product ID
+                sql = "UPDATE products SET product_id = ? WHERE id = '" + ProductData.getId() + "';"; // update the product ID
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, productId);
                 preparedStatement.execute();
             }
             if( !productName.equals( "" ) ){
 
-                sql = "UPDATE products SET product_name = ? WHERE id = '" + UserData.getId() + "';"; // update the product Name
+                sql = "UPDATE products SET product_name = ? WHERE id = '" + ProductData.getId() + "';"; // update the product Name
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, productName);
                 preparedStatement.execute();
             }
             if( !category.equals( "" ) ){
 
-                sql = "UPDATE products SET product_category = ? WHERE id = '" + UserData.getId() + "';"; // update the product Name
+                sql = "UPDATE products SET product_category = ? WHERE id = '" + ProductData.getId() + "';"; // update the product Name
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, category);
                 preparedStatement.execute();
             }
             if( !price.equals( "" ) ){
 
-                sql = "UPDATE products SET product_price = ? WHERE id = '" + UserData.getId() + "';"; // update the product Name
+                sql = "UPDATE products SET product_price = ? WHERE id = '" + ProductData.getId() + "';"; // update the product Name
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, price);
                 preparedStatement.execute();

@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -87,6 +88,7 @@ public class UserController implements Initializable {
                         resultSet.getString(3), // product name
                         resultSet.getString(4), // category name
                         resultSet.getString(5)// price
+                        createButton()
                         // the two buttons don't have to be added since it will in
                         // the constructor
                 ) );
@@ -169,17 +171,18 @@ public class UserController implements Initializable {
 
 
     @FXML
-    public static void editScreen(){
+    public /*static*/ void editScreen(){
 
         try{
 
-            Pane root = FXMLLoader.load( UserController.class.getClassLoader().getResource("/edit/edit.fxml") );
+            Pane root = FXMLLoader.load( /*UserController.class*/getClass().getClassLoader().getResource("./user/edit.fxml") );
 
             Scene editScene = new Scene( root );
 
             Stage editStage = new Stage();
             editStage.setScene( editScene );
             editStage.setTitle( "Edit Item" );
+            editStage.initModality( Modality.APPLICATION_MODAL ); // user has o exit out of update items window before they can access the main
             editStage.show();
 
         }catch (IOException e){

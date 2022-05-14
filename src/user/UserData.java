@@ -2,8 +2,10 @@ package user;
 
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+
 
 public class UserData { // CLASS TO ADD STUDENTS
 
@@ -17,19 +19,19 @@ public class UserData { // CLASS TO ADD STUDENTS
     private Button deleteButton;
 
 
-    public UserData(String productId, String productName, String category, String price){
+    public UserData(String productId, String productName, String category, String price, Button editButton, Button deleteButton){
 
         this.PRODUCT_ID = new SimpleStringProperty( productId );
         this.PRODUCT_NAME = new SimpleStringProperty( productName );
         this.CATEGORY = new SimpleStringProperty( category );
         this.PRICE = new SimpleStringProperty( price );
-        this.editButton = new Button("Edit");
-        this.deleteButton = new Button("Delete");
+        this.editButton = editButton /*new Button("Edit")*/;
+        this.deleteButton = deleteButton/*new Button("Delete")*/;
 
-        editButton.setOnAction( event -> {
+        /*editButton.setOnAction( event -> {
 
             UserController.editScreen();
-        } );
+        } );*/
         BUTTON_HBOX = new HBox();
         BUTTON_HBOX.getChildren().addAll(editButton, deleteButton);
     }

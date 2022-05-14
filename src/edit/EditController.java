@@ -4,11 +4,13 @@ import dbUtil.DBConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import user.UserController;
+import user.UserData;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,11 +20,16 @@ import java.sql.SQLException;
 public class EditController {
 
 
-    public static void editScreen(){
+    @FXML
+    public static Button updateItemButton;
+
+    @FXML
+    public static void editScreen(String id){
+
 
         try{
 
-            Pane root = FXMLLoader.load( UserController.class.getClassLoader().getResource("/user/edit.fxml") );
+            Pane root = FXMLLoader.load( UserController.class.getClassLoader().getResource("./user/edit.fxml") );
 
             Scene editScene = new Scene( root );
 
@@ -53,10 +60,12 @@ public class EditController {
 
 
     @FXML
-    private Label editItemMessageLabel;
+    public Label editItemMessageLabel;
 
     @FXML
     public void updateItem(){
+
+        System.out.println("USER DATA PASSED IS " + UserData.getId() );
 
         String productId = productIdEditTextField.getText();
         String productName = productNameEditTextField.getText();
@@ -85,32 +94,34 @@ public class EditController {
 
             if( !productId.equals( "" ) ){
 
-                sql = "UPDATE products SET product_id = ?;"; // update the product ID
+                sql = "UPDATE products SET product_id = ? WHERE id = '" + UserData.getId() + "';"; // update the product ID
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, productId);
                 preparedStatement.execute();
             }
             if( !productName.equals( "" ) ){
 
-                sql = "UPDATE products SET product_name = ?;"; // update the product Name
+                sql = "UPDATE products SET product_name = ? WHERE id = '" + UserData.getId() + "';"; // update the product Name
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, productName);
                 preparedStatement.execute();
             }
             if( !category.equals( "" ) ){
 
-                sql = "UPDATE products SET product_category = ?;"; // update the product Name
+                sql = "UPDATE products SET product_category = ? WHERE id = '" + UserData.getId() + "';"; // update the product Name
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, category);
                 preparedStatement.execute();
             }
             if( !price.equals( "" ) ){
 
-                sql = "UPDATE products SET product_price = ?;"; // update the product Name
+                sql = "UPDATE products SET product_price = ? WHERE id = '" + UserData.getId() + "';"; // update the product Name
                 preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, price);
                 preparedStatement.execute();
             }
+
+            editItemMessageLabel.setText( "" );
 
         }catch (SQLException e){
 

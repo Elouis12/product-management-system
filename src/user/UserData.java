@@ -18,6 +18,8 @@ public class UserData { // CLASS TO ADD STUDENTS
     private Button editButton;
     private Button deleteButton;
 
+    private static String id; // id of the product, not the product_id itself
+
 
     public UserData(String productId, String productName, String category, String price, String id){
 
@@ -28,11 +30,12 @@ public class UserData { // CLASS TO ADD STUDENTS
         this.editButton = new Button("Edit");
         this.deleteButton = new Button("Delete");
 
-        editButton.setUserData(id); // so we can access it when we make edits
+        editButton.setUserData(id); // save the id of the product where it's at in the table
         editButton.setOnAction( event -> {
 
-            System.out.println(editButton.getUserData());;
-            UserController.editScreen( editButton.getUserData().toString() );
+            System.out.println( editButton.getUserData() );
+            UserData.id = editButton.getUserData().toString(); // pass that id to the update button
+            System.out.println( getId() );
         } );
         BUTTON_HBOX = new HBox();
         BUTTON_HBOX.getChildren().addAll(editButton, deleteButton);
@@ -118,5 +121,10 @@ public class UserData { // CLASS TO ADD STUDENTS
 
         return BUTTON_HBOX;
     }
+
+    public static String getId() {
+        return id;
+    }
+
 }
 

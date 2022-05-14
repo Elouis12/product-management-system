@@ -3,6 +3,7 @@ package edit;
 import dbUtil.DBConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,31 +20,7 @@ import java.sql.SQLException;
 
 public class EditController {
 
-
-    @FXML
-    public static Button updateItemButton;
-
-    @FXML
-    public static void editScreen(){
-
-
-        try{
-
-            Pane root = FXMLLoader.load( UserController.class.getClassLoader().getResource("./user/edit.fxml") );
-
-            Scene editScene = new Scene( root );
-
-            Stage editStage = new Stage();
-            editStage.setScene( editScene );
-            editStage.setTitle( "Edit Item" );
-            editStage.show();
-
-        }catch (IOException e){
-
-            System.err.println( e );
-        }
-    }
-
+    private static boolean updated = false;
 
     // UPDATE ITEM
     @FXML
@@ -123,7 +100,13 @@ public class EditController {
 
             editItemMessageLabel.setText( "" );
 
-        }catch (SQLException e){
+            // using methods from other controllers without using static
+            FXMLLoader loader = new FXMLLoader( getClass().getClassLoader().getResource("./user/user.fxml"));
+            loader.load();
+            UserController controller = loader.getController();
+            controller.loadItems();
+
+        }catch (SQLException | IOException e){
 
             System.err.println(e);
         }

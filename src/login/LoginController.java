@@ -4,11 +4,13 @@ import dbUtil.DBConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import user.UserController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -81,6 +83,7 @@ public class LoginController implements Initializable {
             userStage.setResizable( false );
             userStage.show();
 
+
         }catch (IOException e){
 
             e.printStackTrace();
@@ -89,16 +92,16 @@ public class LoginController implements Initializable {
 
 
     @FXML
-    private TextField signupUsernameTextField;
+    private TextField signUpUsernameTextField;
 
     @FXML
-    private TextField signupEmailTextField;
+    private TextField signUpEmailTextField;
 
     @FXML
-    private TextField signupPasswordTextField;
+    private TextField signUpPasswordTextField;
 
     @FXML
-    private Label signupMessageLabel;
+    private Label signUpMessageLabel;
 
     @FXML
     public void signUp(){
@@ -106,23 +109,23 @@ public class LoginController implements Initializable {
 
         try{
 
-            if( signupUsernameTextField.getText().equals("") ||
-                signupEmailTextField.getText().equals("") ||
-                signupPasswordTextField.getText().equals("") ){
+            if( signUpUsernameTextField.getText().equals("") ||
+                signUpEmailTextField.getText().equals("") ||
+                signUpPasswordTextField.getText().equals("") ){
 
-                this.signupMessageLabel.setText( "Make sure all fields are filled" );
+                this.signUpMessageLabel.setText( "Make sure all fields are filled" );
                 return;
             }
 
-            if( loginModel.hasUsername( signupUsernameTextField.getText() ) ){
+            if( loginModel.hasUsername( signUpUsernameTextField.getText() ) ){
 
-                this.signupMessageLabel.setText( "Username is already taken" );
+                this.signUpMessageLabel.setText( "Username is already taken" );
                 return;
             }
 
-            if( loginModel.hasEmail( signupEmailTextField.getText() ) ){
+            if( loginModel.hasEmail( signUpEmailTextField.getText() ) ){
 
-                this.signupMessageLabel.setText( "Email is already taken" );
+                this.signUpMessageLabel.setText( "Email is already taken" );
                 return;
             }
 
@@ -131,9 +134,9 @@ public class LoginController implements Initializable {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             // place in the values
-            preparedStatement.setString(1, signupUsernameTextField.getText() );
-            preparedStatement.setString(2, signupEmailTextField.getText() );
-            preparedStatement.setString(3, signupPasswordTextField.getText() );
+            preparedStatement.setString(1, signUpUsernameTextField.getText() );
+            preparedStatement.setString(2, signUpEmailTextField.getText() );
+            preparedStatement.setString(3, signUpPasswordTextField.getText() );
 
             // execute the query
             preparedStatement.execute();
@@ -142,11 +145,11 @@ public class LoginController implements Initializable {
             connection.close();
             preparedStatement.close();
 
-            // clear signup form
-            this.signupUsernameTextField.setText( "" );
-            this.signupEmailTextField.setText( "" );
-            this.signupPasswordTextField.setText( "" );
-            this.signupMessageLabel.setText( "" );
+            // clear signUp form
+            this.signUpUsernameTextField.setText( "" );
+            this.signUpEmailTextField.setText( "" );
+            this.signUpPasswordTextField.setText( "" );
+            this.signUpMessageLabel.setText( "" );
 
 
         }catch (SQLException e){

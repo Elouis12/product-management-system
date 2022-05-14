@@ -1,10 +1,12 @@
 package user;
 
-import edit.EditController;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+
+import java.io.IOException;
 
 
 public class ProductData { // CLASS TO ADD STUDENTS
@@ -30,13 +32,40 @@ public class ProductData { // CLASS TO ADD STUDENTS
         this.editButton = new Button("Edit");
         this.deleteButton = new Button("Delete");
 
+        // EDIT BUTTON
         editButton.setUserData(id); // save the id of the product where it's at in the table
         editButton.setOnAction( event -> {
 
-            System.out.println( editButton.getUserData() );
             ProductData.id = editButton.getUserData().toString(); // pass that id to the update button
-            System.out.println( getId() );
-            EditController.editScreen();
+
+            // to use editScreen
+            try {
+                FXMLLoader loader = new FXMLLoader( getClass().getClassLoader().getResource("./user/user.fxml"));
+                loader.load();
+                UserController controller = loader.getController();
+                controller.editScreen();
+                controller.loadItems();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } );
+
+        // DELETE BUTTON
+        deleteButton.setUserData(id);
+        deleteButton.setOnAction( event -> {
+
+            ProductData.id = editButton.getUserData().toString(); // pass that id to the delete button
+            // to use delete
+            try {
+                FXMLLoader loader = new FXMLLoader( getClass().getClassLoader().getResource("./user/user.fxml"));
+                loader.load();
+                UserController controller = loader.getController();
+                controller.deleteItem();
+                controller.loadItems();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         } );
         BUTTON_HBOX = new HBox();

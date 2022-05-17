@@ -20,8 +20,6 @@ import java.sql.SQLException;
 
 public class EditController {
 
-    private static boolean updated = false;
-
     // UPDATE ITEM
     @FXML
     private TextField productIdEditTextField;
@@ -103,7 +101,7 @@ public class EditController {
             // using methods from other controllers without using static
             FXMLLoader loader = new FXMLLoader( getClass().getClassLoader().getResource("./user/user.fxml"));
             loader.load();
-            UserController controller = loader.getController();
+            UserController controller = loader.getController(); // grab the controller attached to it so we can use it's functions
             controller.loadItems();
 
         }catch (SQLException | IOException e){

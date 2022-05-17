@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -13,7 +14,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="user.UserController">
    <children>
       <TabPane prefHeight="718.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE">
@@ -22,13 +22,25 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logout" text="Logout" />
-                        <TableView layoutX="307.0" layoutY="187.0" prefHeight="200.0" prefWidth="390.0">
-                          <columns>
-                            <TableColumn prefWidth="77.33331298828125" text="Products" />
-                            <TableColumn prefWidth="73.06668090820312" text="Categories" />
-                          </columns>
-                        </TableView>
+                        <VBox prefHeight="690.0" prefWidth="1278.0">
+                           <children>
+                              <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="128.0" text="Logout">
+                                 <VBox.margin>
+                                    <Insets left="1130.0" top="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <PieChart fx:id="inventoryPieChart" prefHeight="400.0" prefWidth="902.0" title="Inventory">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" left="100.0" right="100.0" top="30.0" />
+                                 </VBox.margin>
+                              </PieChart>
+                              <Label fx:id="productCount">
+                                 <VBox.margin>
+                                    <Insets left="575.0" right="300.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
             </content>
@@ -160,7 +172,7 @@
                                           </Label>
                                           <HBox prefHeight="0.0" prefWidth="373.0">
                                              <children>
-                                                <ComboBox fx:id="addItemComboBox" prefWidth="130.0" promptText="Search By">
+                                                <ComboBox fx:id="addItemComboBox" onKeyReleased="#searchProduct" prefWidth="130.0" promptText="Search By">
                                                    <HBox.margin>
                                                       <Insets left="10.0" />
                                                    </HBox.margin>

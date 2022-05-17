@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
@@ -21,6 +22,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class UserController implements Initializable {
@@ -40,8 +42,6 @@ public class UserController implements Initializable {
 
     @FXML
     private Label addItemMessageLabel;
-
-    // SEARCH FORM
 
     // TABLE
     @FXML
@@ -77,6 +77,7 @@ public class UserController implements Initializable {
 
     public void loadItems(){
 
+        pieChart(); // load the pie chart
         String sql = "SELECT * FROM products WHERE product_owner = '" + UserModel.getUserId() + "';";
 
         try {
@@ -84,7 +85,6 @@ public class UserController implements Initializable {
             Connection connection = DBConnection.getConnection();
             this.dataForTable = FXCollections.observableArrayList();
 
-//            ResultSet resultSet = connection.createStatement().executeQuery(sql); // gets the data
             ResultSet resultSet = connection.prepareStatement(sql).executeQuery(); // gets the data
 
             while( resultSet.next() ){ // has anything .. going through each row
@@ -252,13 +252,15 @@ public class UserController implements Initializable {
 
             clearTable(); // so it doesn't keep adding to the table
 
-            String sqlSearch = "SELECT * FROM products WHERE product_owner = '" + UserModel.getUserId() + "' AND '" + searchBy + "' LIKE ?"; // sql search query
+            String sqlSearch = "SELECT * FROM products WHERE product_owner = ? AND ? LIKE ?"; // sql search query
 
 
             Connection connection = DBConnection.getConnection(); // establish a connection
 
             PreparedStatement preparedStatement = connection.prepareStatement(sqlSearch); //
-            preparedStatement.setString( 1, "%" + this.searchByTextField.getText() + "%" ); // input text
+            preparedStatement.setString( 1, UserModel.getUserId() ); // input text
+            preparedStatement.setString( 2, searchBy ); // input text
+            preparedStatement.setString( 3, "%" + this.searchByTextField.getText() + "%" ); // input text
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -324,6 +326,51 @@ public class UserController implements Initializable {
     private void clearTable(){ // for the search functionality
 
         this.productTable.getItems().clear();
+    }
+
+
+    @FXML
+    private PieChart inventoryPieChart;
+
+    @FXML
+    private Label productCount;
+
+    public void pieChart(){
+
+        Connection connection;
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        try{
+
+            String sql = "SELECT DISTINCT product_category, COUNT(product_category) FROM products WHERE product_owner = '" + UserModel.getUserId() + "' GROUP BY product_category;";
+
+            connection = DBConnection.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+
+            ArrayList<PieChart.Data> slices = new ArrayList<>();
+
+            double totalProducts = 0;
+
+            while( resultSet.next() ){
+
+                String category = resultSet.getString(1);
+                double total = Double.parseDouble( resultSet.getString(2) );
+
+                totalProducts += total;
+
+                slices.add( new PieChart.Data( ( category + " | " + total ), total ) );
+                        
+            }
+
+            productCount.setText("Product | " + totalProducts);
+
+            inventoryPieChart.getData().addAll( slices );
+
+        }catch (SQLException e){
+
+        }
+
     }
 
 }
